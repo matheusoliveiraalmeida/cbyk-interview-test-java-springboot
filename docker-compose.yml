@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: contas_pagar
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
+
+  flyway:
+    image: flyway/flyway
+    depends_on:
+      - db
+    command: -url=jdbc:postgresql://db:5432/contas_pagar -user=postgres -password=pass -locations=filesystem:/flyway/sql migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+
+  app:
+    build: .
+    depends_on:
+      - db
+      - flyway
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/contas_pagar
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: pass
