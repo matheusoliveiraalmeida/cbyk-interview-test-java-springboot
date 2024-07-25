@@ -1,5 +1,6 @@
 ## APP
 
+```mvn clean package``` para build do JAR.
 ```docker-compose build``` para construção das imagens.
 ```docker-compose up``` para iniciar os containers.
 
