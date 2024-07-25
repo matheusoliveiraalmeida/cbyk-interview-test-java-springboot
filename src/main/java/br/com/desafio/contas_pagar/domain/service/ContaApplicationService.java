@@ -23,12 +23,14 @@ public class ContaApplicationService {
         return new ContaDTO(contaDomainService.getContaById(id));
     }
 
-    public ContaDTO create(ContaDTO conta) {
-        return new ContaDTO(contaDomainService.create(new Conta(conta)));
+    public ContaDTO create(ContaDTO contaDTO) {
+        Conta conta = contaDomainService.create(new Conta(contaDTO));
+        return conta.toDTO();
     }
 
-    public ContaDTO update(Long id, ContaDTO conta) {
-        return new ContaDTO(contaDomainService.update(id, new Conta(conta)));
+    public ContaDTO update(Long id, ContaDTO contaDTO) {
+        Conta conta = contaDomainService.update(id, new Conta(contaDTO));
+        return conta.toDTO();
     }
 
     public void updateSituacao(Long id, Situacao situacao) {
