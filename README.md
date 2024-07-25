@@ -1,5 +1,6 @@
 ## APP
 
+```docker-compose build``` para construção das imagens.
 ```docker-compose up``` para iniciar os containers.
 
 Ao inicializar a aplicação a mesma já roda as migrations dentro do resources.
