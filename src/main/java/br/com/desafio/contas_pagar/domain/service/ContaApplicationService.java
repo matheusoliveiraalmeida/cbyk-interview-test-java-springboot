@@ -4,6 +4,7 @@ import br.com.desafio.contas_pagar.application.dto.ContaDTO;
 import br.com.desafio.contas_pagar.domain.model.Conta;
 import br.com.desafio.contas_pagar.domain.model.Situacao;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class ContaApplicationService {
 
     private final ContaDomainService contaDomainService;
@@ -34,6 +36,8 @@ public class ContaApplicationService {
     }
 
     public List<ContaDTO> getContasByDateAndDescription(LocalDate startDate, LocalDate endDate, String descricao) {
+        log.info(String.format("[ContaApplicationService] - getContasByDateAndDescription %s", descricao));
+
         List<Conta> contas = contaDomainService.getContasByDateAndDescription(startDate, endDate, descricao);
 
         return contas

@@ -1,10 +1,11 @@
 package br.com.desafio.contas_pagar.application;
 
 import br.com.desafio.contas_pagar.application.dto.ContaDTO;
-import br.com.desafio.contas_pagar.domain.model.Conta;
 import br.com.desafio.contas_pagar.domain.model.Situacao;
 import br.com.desafio.contas_pagar.domain.service.ContaApplicationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +19,20 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/contas")
 @RequiredArgsConstructor
+@Slf4j
 public class ContaController {
 
     private final ContaApplicationService contaApplicationService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ContaDTO> getContaById(@PathVariable Long id) {
+        log.info("[GET] /api/contas {} ", id);
         return new ResponseEntity<>(contaApplicationService.getContaById(id), OK);
     }
 
     @PostMapping
     public ResponseEntity<ContaDTO> create(@RequestBody ContaDTO conta) {
+        log.info("[POST] /api/contas {} ", conta);
         return new ResponseEntity<>(contaApplicationService.create(conta), CREATED);
     }
 
